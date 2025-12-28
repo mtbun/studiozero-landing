@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
     initParallaxEffects();
     initComparisonSliders();
     initVideoMockup();
+    initHamburgerMenu();
+
+    // Initialize language system (from translations.js)
+    if (typeof initLanguage === 'function') {
+        initLanguage();
+    }
 });
 
 /* ============================================
@@ -41,6 +47,37 @@ function initNavbar() {
                 updateNavbar();
             });
             ticking = true;
+        }
+    });
+}
+
+/* ============================================
+   Hamburger Menu Toggle
+   ============================================ */
+function initHamburgerMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    if (!hamburger || !navLinks) return;
+
+    hamburger.addEventListener('click', function () {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
         }
     });
 }

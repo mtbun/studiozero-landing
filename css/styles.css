@@ -163,6 +163,183 @@ ul {
     box-shadow: var(--shadow-glow);
 }
 
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: var(--transition-medium);
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Language Selector */
+.lang-selector {
+    position: relative;
+}
+
+.lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.lang-toggle:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-hover);
+}
+
+.lang-toggle svg {
+    width: 12px;
+    height: 12px;
+    transition: var(--transition-fast);
+}
+
+.lang-dropdown.active+.lang-toggle svg,
+.lang-selector:hover .lang-toggle svg {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: rgba(20, 20, 35, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 120px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition-medium);
+    z-index: 1000;
+}
+
+.lang-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.lang-option:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+.lang-option.active {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: rgba(10, 10, 20, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 100px 30px 40px;
+        gap: 0;
+        transition: var(--transition-medium);
+        border-left: 1px solid var(--border);
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        padding: 16px 0;
+        font-size: 1.125rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links .nav-cta {
+        margin-top: 24px;
+        text-align: center;
+        border-bottom: none;
+    }
+
+    .nav-links .lang-selector {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-links .lang-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-links .lang-dropdown {
+        position: static;
+        margin-top: 12px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;
+    }
+
+    .nav-links .lang-dropdown.active {
+        display: block;
+    }
+}
+
 /* ============================================
    Hero Section
    ============================================ */
@@ -1123,10 +1300,6 @@ ul {
 @media (max-width: 768px) {
     :root {
         --section-padding: 80px;
-    }
-
-    .nav-links {
-        display: none;
     }
 
     .hero {
